@@ -1,0 +1,5 @@
+<apex:page >
+
+hi this is vikranm.
+<apex:enhancedList type="Opportunity" height="600" customizable="true" rowsPerPage="25"/>
+</apex:page>

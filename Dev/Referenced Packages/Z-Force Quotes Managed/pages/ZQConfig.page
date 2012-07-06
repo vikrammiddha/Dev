@@ -1,0 +1,119 @@
+<apex:page controller="zqu.ZQConfigController" action="{!onload}" id="thepage">
+    <apex:form id="theform">
+        <apex:pageBlock title="Z-Force Quotes Config" id="zclp">
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Edit" rendered="{!!editmode}" action="{!edit}" style="margin-left:20%" reRender="zclp" />
+                <apex:commandButton value="Save" rendered="{!editmode}" action="{!save}" style="margin-left:20%" reRender="zclp"/>
+                <apex:commandButton value="Cancel" rendered="{!editmode}" immediate="true" action="{!onload}" reRender="zclp"/>
+            </apex:pageBlockButtons>      
+            <apex:messages style="font-weight:bold;color:red" />  
+            <apex:pageBlockSection title="Connection Settings" columns="1" collapsible="false" rendered="{!!editmode}" >                                 
+                <apex:outputField value="{!zqconfig.zqu__APIURL__c}"/>
+                <apex:outputField value="{!zqconfig.zqu__APIUsername__c}"/>
+                <apex:outputField value="{!zqconfig.zqu__Enable_Apex_Call_Out_Debug__c}"/>                      
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Zuora Config Settings" columns="1" collapsible="false" rendered="{!!editmode}" > 
+                <apex:outputField value="{!zqconfig.zqu__Currency__c}"/>  
+                <apex:outputField value="{!zqconfig.zqu__QuoteURL__c}" /> 
+                <apex:outputField value="{!zqconfig.zqu__Template_Id__c}"/> 
+                <apex:outputField value="{!zqconfig.zqu__AmendmentTemplateId__c}"/> 
+                <apex:outputField value="{!zqconfig.zqu__RenewalTemplateId__c}"/>
+                <apex:outputField value="{!zqconfig.zqu__Payment_Term__c}" />
+                <apex:outputField value="{!zqconfig.zqu__Invoice_Delivery_Preferences__c}"/>
+                <apex:outputField value="{!zqconfig.zqu__BillingAccount_Batch__c}"/>            
+                <apex:outputField value="{!zqconfig.zqu__BillingAccount_BillCycleDay__c}"/>          
+                <apex:outputField value="{!zqconfig.zqu__BillingAccount_AllowInvoiceEdit__c}"/>                         
+                <apex:outputField value="{!zqconfig.zqu__SubscriptionAutorenewDefault__c}"/>   
+                <apex:outputField value="{!zqconfig.zqu__Match_Contract_Effective_Date__c}"/>
+                <apex:outputField value="{!zqconfig.zqu__Always_Active_Amendment__c}"/>  
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Quotes Permission Settings" columns="1" collapsible="false"  rendered="{!!editmode}" >           
+                <apex:outputField value="{!zqconfig.zqu__Allow_Updating_Zuora_Account_Info__c}"/>           
+                <apex:outputField value="{!zqconfig.zqu__Allow_Update_Bill_Cycle_Day__c}"/>           
+                <apex:outputField value="{!zqconfig.zqu__Quote_Read_Only__c}"/>            
+                <apex:outputField value="{!zqconfig.zqu__Enable_Amendment__c}"/>
+                <apex:outputField value="{!zqconfig.zqu__Auto_replace_Expired_Rate_Plans__c}"/>
+                <apex:outputField value="{!zqconfig.zqu__AttachToOpportunity__c}"/>
+                <apex:outputField value="{!zqconfig.zqu__Update_Opportunity_Amount_with_Quote_TCV__c}"/>  
+            </apex:pageBlockSection> 
+            <apex:pageBlockSection title="Connection Settings" columns="1" collapsible="false" rendered="{!editmode}" id="edit_consection">                                 
+                <apex:inputField value="{!zqconfig.zqu__APIURL__c}" required="true" style="width:70%"/>
+                <apex:inputField value="{!zqconfig.zqu__APIUsername__c}" required="true"/>    
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="API Password"></apex:outputLabel>
+                    <apex:outputPanel >
+                        <div class="requiredInput"><div class="requiredBlock"></div>        
+                            <apex:inputSecret value="{!zqconfig.zqu__APIPassword__c}" required="true" redisplay="true" />
+                        </div>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem> 
+                <apex:outputPanel >
+                    <apex:commandButton value="Test Connection" rendered="{!editmode}" action="{!testconnection}" style="margin-left:20%" reRender="edit_consection" />   
+                    <apex:outputText value="{!testConnectionResult}" rendered="{!testConnectionResult!=null}"></apex:outputText>
+                </apex:outputPanel>
+                <apex:inputField value="{!zqconfig.zqu__Enable_Apex_Call_Out_Debug__c}"/>   
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Zuora Settings" columns="1" collapsible="false"  rendered="{!editmode}" >
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Currency"></apex:outputLabel>
+                    <apex:outputPanel id="fieldcurrency">                                              
+                        <apex:selectList value="{!zqconfig.zqu__Currency__c}" size="1" multiselect="false" >
+                            <apex:selectOptions value="{!currencySelectList}"></apex:selectOptions>
+                        </apex:selectList>   
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>                 
+                <apex:inputField value="{!zqconfig.zqu__QuoteURL__c}" style="width:70%"/> 
+                <apex:inputField value="{!zqconfig.zqu__Template_Id__c}" style="width:40%"/>
+                <apex:inputField value="{!zqconfig.zqu__AmendmentTemplateId__c}" style="width:40%"/>
+                <apex:inputField value="{!zqconfig.zqu__RenewalTemplateId__c}" style="width:40%"/>
+                <apex:pageBlockSectionItem >                    
+                    <apex:outputLabel value="Payment Term"></apex:outputLabel>
+                    <apex:outputPanel id="fieldpaymentterm">
+                   		<apex:selectList value="{!zqconfig.zqu__Payment_Term__c}" size="1" multiselect="false">
+	                        <apex:selectOptions value="{!paymentTermSelectList}"></apex:selectOptions>
+	                    </apex:selectList>
+		            </apex:outputPanel>    
+                </apex:pageBlockSectionItem> 
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Invoice Delivery Preferences"></apex:outputLabel>
+                    <apex:selectList value="{!zqconfig.zqu__Invoice_Delivery_Preferences__c}" size="1" multiselect="false">
+                        <apex:selectOptions value="{!invoiceDeliveryPreferenceSelectList}"></apex:selectOptions>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem> 
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Billing Account Batch"></apex:outputLabel>
+                    <apex:outputPanel >
+                        <div class="requiredInput"><div class="requiredBlock"></div>
+                            <apex:selectList value="{!zqconfig.zqu__BillingAccount_Batch__c}" size="1" multiselect="false">
+                                <apex:selectOptions value="{!batchSelectList}"></apex:selectOptions>
+                            </apex:selectList>
+                        </div>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem> 
+                 <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Billing Account Bill Cycle Day"></apex:outputLabel>
+                    <apex:outputPanel >
+                        <div class="requiredInput"><div class="requiredBlock"></div>
+                            <apex:selectList value="{!zqconfig.zqu__BillingAccount_BillCycleDay__c}" size="1" multiselect="false">
+                                <apex:selectOptions value="{!billCycleDaySelectList}"></apex:selectOptions>
+                            </apex:selectList>
+                        </div>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>           
+                <apex:inputField value="{!zqconfig.zqu__BillingAccount_AllowInvoiceEdit__c}"/>                         
+                <apex:inputField value="{!zqconfig.zqu__SubscriptionAutorenewDefault__c}"/> 
+                <apex:inputField value="{!zqconfig.zqu__Match_Contract_Effective_Date__c}"/>
+                <apex:inputField value="{!zqconfig.zqu__Always_Active_Amendment__c}"/>     
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Quotes Pemission Settings" columns="1" collapsible="false" rendered="{!editmode}" >       
+                <apex:inputField value="{!zqconfig.zqu__Allow_Updating_Zuora_Account_Info__c}"/>           
+                <apex:inputField value="{!zqconfig.zqu__Allow_Update_Bill_Cycle_Day__c}"/>           
+                <apex:inputField value="{!zqconfig.zqu__Quote_Read_Only__c}"/>            
+                <apex:inputField value="{!zqconfig.zqu__Enable_Amendment__c}"/> 
+                <apex:inputField value="{!zqconfig.zqu__Auto_replace_Expired_Rate_Plans__c}"/>
+                <apex:inputField value="{!zqconfig.zqu__AttachToOpportunity__c}"/>  
+                <apex:inputField value="{!zqconfig.zqu__Update_Opportunity_Amount_with_Quote_TCV__c}"/>
+            </apex:pageBlockSection>               
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

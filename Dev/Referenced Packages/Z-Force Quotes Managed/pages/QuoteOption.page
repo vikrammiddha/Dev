@@ -1,0 +1,4 @@
+<apex:page standardController="Opportunity" extensions="zqu.QuoteOptionController" showHeader="true" sidebar="true"
+   action="{!getRedir}">
+   <div id="loading" style="width:500px;">Loading</div>
+</apex:page>

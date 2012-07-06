@@ -1,0 +1,53 @@
+<apex:page showHeader="true" sidebar="true" standardController="Opportunity" extensions="zqu.QuoteEnhancementController" tabStyle="zqu__Quote__c" title="Quote Enhancement" action="{!onload}">
+    <apex:sectionHeader title="New Quote" subtitle="Select Z-Billing Account" id="quoteTitle" />
+    <apex:form >
+        <apex:pageBlock >
+            <apex:pageBlockSection columns="1" id="accountsection">
+                <apex:outputPanel id="pageerrors" >
+		            <apex:dataList var="error" value="{!pageerrormessages}" rendered="{!pageerrormessages.size > 0}">
+		                <apex:outputText value="{!error}" style="color:red;font-weight :bold"/>
+		            </apex:dataList> 
+	            </apex:outputPanel>  
+                <apex:outputLabel value="There is one or more Z-Billing Account corresponding to this Salesforce Account."></apex:outputLabel> 
+                <apex:outputLabel value="Please select the account to use:" style="font-weight:bold"></apex:outputLabel> 
+                <apex:selectRadio layout="pageDirection" id="accTypeRadio" value="{!selectedAccountType}">
+                    <apex:actionSupport event="onclick"  action="{!selectAccountType}" reRender="accListRadio,subscriptionSection"/>                      
+                    <apex:selectOption itemEscaped="false" itemlabel="{!newAccItemLabel}" itemValue="new"  id="new_billingaccount"/>  
+                    <apex:selectOption itemEscaped="false" itemLabel="{!existingAccItemLabel}" itemValue="existing" itemDisabled="{!billingAccountList.size == 0}" id="existing_billingaccount"></apex:selectOption>
+                </apex:selectRadio>
+                <apex:outputPanel id="accListRadio">
+                    <apex:selectRadio layout="pageDirection" value="{!selectedAccount}"  style="position:relative;left:5%" rendered="{!selectedAccountType == 'existing' && billingAccountList.size > 0 }">   
+                        <apex:actionSupport event="onclick" action="{!selectAccount}" reRender="subscriptionSection,pageerrors"/>
+                        <apex:selectOptions value="{!billingAccountList}" ></apex:selectOptions>
+                    </apex:selectRadio>
+                </apex:outputPanel>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection columns="1" id="subscriptionSection">
+                <apex:outputLabel value="Create quote for:" style="font-weight:bold"></apex:outputLabel>
+                <apex:selectRadio layout="pageDirection" id="subTypeRadio" value="{!selectedSubscriptionType}" >
+                    <apex:actionSupport event="onclick"  action="{!selectSubscriptionType}" reRender="existingSubscriptionOptions"/>
+                    <apex:selectOption itemEscaped="false" itemLabel="{!newSubItemLabel}" itemValue="new"> </apex:selectOption>
+                    <apex:selectOption itemEscaped="false" itemLabel="{!existingSubItemLabel}" itemValue="existing"  itemDisabled="{!subscriptionList.size == 0}" rendered="{!selectedAccountType == 'existing'}"></apex:selectOption>                    
+                </apex:selectRadio>
+                <apex:outputPanel id="existingSubscriptionOptions">
+                		 
+		                    <apex:selectList value="{!selectedSubscription}" style="position:relative;left:3%;background:#fbfbd7" size="1" rendered="{!selectedSubscriptionType == 'existing' && subscriptionList.size > 0}">
+		                        <apex:selectOptions value="{!subscriptionList}"></apex:selectOptions>
+		                        
+		                    </apex:selectList>		                 
+		                    <apex:outputPanel style="position:relative;left:5%" rendered="{!selectedSubscriptionType == 'existing' && subscriptionList.size > 0}">
+		                        <apex:selectRadio style="position:relative;left:5%" layout="pageDirection" value="{!selectedAmendmentType}">
+		                            <apex:selectOption itemescaped="false" itemLabel="{!amendSubItemLabel}" itemValue="amend"></apex:selectOption>
+		                            <apex:selectOption itemescaped="false" itemLabel="{!renewSubItemLabel}" itemValue="renew" ></apex:selectOption>
+		                        </apex:selectRadio>
+		                    </apex:outputPanel>
+		                       
+                </apex:outputPanel>
+            </apex:pageBlockSection>
+            <apex:pageBlockButtons location="bottom">    
+                <apex:commandButton value="Continue" action="{!createQuote}"/>
+                <apex:commandButton value="Cancel" action="{!cancel}"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,157 @@
+<apex:page id="page" standardController="zqu__Quote__c" extensions="zqu.ZuoraQuoteSubmitController" title="Quote" sidebar="false" tabStyle="zqu__Quote__c"  action="{!onload}">
+    <apex:form id="previewform">
+        <apex:actionStatus id="switchaccount">
+            <apex:facet name="start">
+                <apex:outputLabel value="Switching to selected account..." style="font-weight:bold;position:relative;left:5%"></apex:outputLabel>
+            </apex:facet>
+            <apex:facet name="stop">
+        <apex:pageBlock id="subscriptionblock" title="We are about to create subscription in Zuora using following data:" >
+        	<apex:outputPanel id="pageerrors" >
+	            <apex:dataList var="error" value="{!pageerrormessages}" rendered="{!pageerrormessages.size > 0}">
+	                <apex:outputText value="{!error}" style="color:red;font-weight :bold"/>
+	            </apex:dataList> 
+            </apex:outputPanel>  
+            <apex:outputText value="A subscription was created with id: " style="position:relative;left:25%" rendered="{!sentdone}" />
+            <apex:outputText value="{!successresult}" style="font-weight:bold;position:relative;left:25%" rendered="{!sentdone}"/>
+			<apex:pageBlock title="Select Account" rendered="{!zaccountoptions.size > 1 && !sentdone}"  id="accountselector">              
+                <apex:pageBlockSection columns="1" >
+                    <apex:outputLabel style="font-weight:bold;color:red">There are one or more accounts in Z-Billing associated with this Salesforce Account. Please choose an option below:</apex:outputLabel>                                        
+                        <apex:selectRadio layout="pageDirection" value="{!selectedZAccId}">
+                            <apex:actionSupport event="onclick"  action="{!selectAccount}" status="switchaccount" reRender="pageerrors,accountdetail,billtodetail,soldtodetail,subscriptionterms"/>
+                            <apex:selectOptions value="{!zaccountoptions}"></apex:selectOptions>
+                        </apex:selectRadio>
+                </apex:pageBlockSection>            
+            </apex:pageBlock>
+            <apex:pageBlock title="Account Detail" id="accountdetail">              
+                <apex:pageBlockSection columns="2" >
+                    <apex:outputField style="font-weight:bold" value="{!saccount.Name}"/>                            
+                    <apex:outputField value="{!saccount.Id}"/>
+                    <apex:outputField value="{!saccount.Owner.Name}"/>          
+                </apex:pageBlockSection>            
+            </apex:pageBlock>
+            <apex:outputPanel id="billtodetail">                
+                <apex:pageBlock title="Bill To Contact" >
+                    <apex:actionStatus startText="Updating to Zuora..." stopText="{!updateBillToError}" stopStyle="color:#FF0000" id="updatebilltostatus"/>
+                    <apex:pageBlockButtons location="top">
+                        <apex:commandButton value="Update Zuora Data" status="updatebilltostatus" action="{!updatebillto}" reRender="billtodetail,soldtodetail" rendered="{!showBillToUpdate}"/>
+                        <apex:commandButton value="Edit Salesforce Contact"  action="{!editbilltocontact}" rendered="{!showBillToUpdate}"/>
+                    </apex:pageBlockButtons>                    
+                    <c:contactdetail cdisplay="{!billtocontact}" showupdate="{!showBillToUpdate}" >                        
+                    </c:contactdetail>
+                </apex:pageBlock>
+            </apex:outputPanel>
+            <apex:outputPanel id="soldtodetail">
+                <apex:pageBlock title="Sold To Contact">
+                    <apex:actionStatus startText="Updating to Zuora..." stopText="{!updateSoldToError}" stopStyle="color:#FF0000" id="updatesoldtostatus"/>
+                    <apex:pageBlockButtons location="top">
+                        <apex:commandButton value="Update Zuora Data" status="updatesoldtostatus" action="{!updatesoldto}" reRender="billtodetail,soldtodetail" rendered="{!showSoldToUpdate}"/>
+                    	<apex:commandButton value="Edit Salesforce Contact"  action="{!editsoldtocontact}" rendered="{!showSoldToUpdate}"/>
+                    </apex:pageBlockButtons> 
+                    <c:contactdetail cdisplay="{!soldtocontact}" showupdate="{!showSoldToUpdate}" >                   
+                    </c:contactdetail>
+                </apex:pageBlock>
+            </apex:outputPanel>
+            <apex:pageBlock title="Subscription Terms" id="subscriptionterms">
+                <apex:actionStatus startText="Updating to Zuora..." stopText="{!updateSubscriptionTermsError}" stopStyle="color:#FF0000" id="updatesubtermstatus"/>
+                <apex:pageBlockButtons location="top">
+                    <apex:commandButton value="Update Zuora Data" status="updatesubtermstatus" action="{!updateSubscriptionTerms}" reRender="subscriptionterms" rendered="{!showSubscriptionTermsUpdate}"/>
+                </apex:pageBlockButtons>   
+                <apex:pageBlockSection columns="2" >
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel >Payment Term</apex:outputLabel> 
+                        <apex:panelGrid >
+                            <apex:panelGroup layout="block" style="width:100%">
+                                <apex:outputText value="{!quote.zqu__PaymentTerm__c}" rendered="true" />                 
+                                <apex:outputText value="[{!zAccPaymentTerm}]" title="Please click the 'Update Zuora Data' button to update the information in Zuora with the latest SFDC data." styleClass="inlineEditModified" rendered="{!quote.zqu__PaymentTerm__c != zAccPaymentTerm}" />
+                            </apex:panelGroup>
+                        </apex:panelGrid>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel >Payment Method</apex:outputLabel> 
+                        <apex:panelGrid >
+                            <apex:panelGroup layout="block" style="width:100%">
+                                <apex:outputText value="{!quote.zqu__PaymentMethod__c}" rendered="true" />                 
+                                <apex:outputText value="[{!zAccPaymentMethod}]" title="Please click the 'Update Zuora Data' button to update the information in Zuora with the latest SFDC data." styleClass="inlineEditModified" rendered="{!quote.zqu__PaymentMethod__c != zAccPaymentMethod}" />
+                            </apex:panelGroup>
+                        </apex:panelGrid>
+                    </apex:pageBlockSectionItem>
+                    <apex:outputField value="{!quote.zqu__Currency__c}"/>   
+                    <apex:outputField value="{!quote.zqu__StartDate__c}"/>
+                    
+                    <apex:outputField value="{!quote.zqu__Service_Activation_Date__c}"/>
+                    <apex:outputField value="{!quote.zqu__Customer_Acceptance_Date__c}"/>
+                     
+                    <apex:outputField value="{!quote.zqu__Subscription_Term_Type__c}"/>            
+                    <apex:outputField value="{!quote.zqu__InitialTerm__c}"/>
+                    <apex:outputField value="{!quote.zqu__RenewalTerm__c}"/>
+                    <apex:outputField value="{!quote.zqu__BillingMethod__c}"/>
+                    <apex:outputField value="{!quote.zqu__AutoRenew__c}"/>
+                </apex:pageBlockSection>                                
+            </apex:pageBlock>
+            <apex:pageBlock title="Quote Charges" >
+                <apex:outputLabel value="No product selected"  rendered="{!quotecharges.size = 0}" />
+                <apex:dataTable value="{!quotecharges}" var="quotecharge" width="100%" cellpadding="4" rendered="{!quotecharges.size > 0}">
+                    <apex:column width="12%">
+                        <apex:facet name="header">Name</apex:facet>
+                        <apex:outputText value="{!quotecharge.Name}"/>
+                    </apex:column>
+                    <apex:column width="10%">
+                        <apex:facet name="header">Type</apex:facet>
+                        <apex:outputText value="{!quotecharge.zqu__ChargeType__c}"/>
+                    </apex:column>
+                    <apex:column width="10%">
+                        <apex:facet name="header">Model</apex:facet>
+                        <apex:outputText value="{!quotecharge.zqu__Model__c}"/>
+                    </apex:column>
+                    <apex:column width="8%">
+                        <apex:facet name="header">List Price</apex:facet>
+                        <apex:outputText value="{!quotecharge.zqu__ListPrice__c}"/>
+                    </apex:column>
+                    <apex:column width="8%">
+                        <apex:facet name="header">Discount</apex:facet>
+                        <apex:outputText value="{!quotecharge.zqu__Discount__c}"/>
+                    </apex:column>
+                    <apex:column width="8%">
+                        <apex:facet name="header">Effective Price</apex:facet>
+                        <apex:outputText value="{!quotecharge.zqu__EffectivePrice__c}"/>
+                    </apex:column>
+                    <apex:column width="8%">
+                        <apex:facet name="header">Quantity</apex:facet>
+                        <apex:outputText value="{!quotecharge.zqu__Quantity__c}"/>
+                    </apex:column>
+                    <apex:column width="10%">
+                        <apex:facet name="header">UOM</apex:facet>
+                        <apex:outputText value="{!quotecharge.zqu__UOM__c}"/>
+                    </apex:column>
+                    <apex:column width="8%">
+                        <apex:facet name="header">Period</apex:facet>
+                        <apex:outputText value="{!quotecharge.zqu__Period__c}"/>
+                    </apex:column>
+                    <apex:column width="8%">
+                        <apex:facet name="header">List Total</apex:facet>
+                        <apex:outputText value="{!quotecharge.zqu__ListTotal__c}"/>
+                    </apex:column>
+                    <apex:column width="8%">
+                        <apex:facet name="header">Total</apex:facet>
+                        <apex:outputText value="{!quotecharge.zqu__Total__c}"/>
+                    </apex:column>
+                </apex:dataTable>
+            </apex:pageBlock> 
+            
+            <apex:pageBlockButtons location="top" >
+                <apex:commandButton style="position:relative;left:10%" rendered="{!sentdone}" value="Done" action="{!clickdone}" />
+                <apex:actionStatus id="sendingstatus">
+                    <apex:facet name="start">
+                        <apex:commandButton value="Creating..." disabled="true" style="position:relative;left:10%"/>
+                    </apex:facet>
+                    <apex:facet name="stop">
+                        <apex:commandButton style="position:relative;left:10%" status="sendingstatus" rendered="{!!sentdone}" value="Create Subscription"  action="{!sendnow}" rerender="previewform"/>                     
+                    </apex:facet>
+                </apex:actionStatus> 
+                <apex:commandButton style="position:relative;left:10%" rendered="{!!sentdone}" value="Cancel" action="{!cancel}"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+        </apex:facet>
+        </apex:actionStatus>
+    </apex:form>    
+</apex:page>

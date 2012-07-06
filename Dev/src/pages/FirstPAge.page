@@ -1,0 +1,17 @@
+<apex:page standardController="Account">
+
+<apex:pageBlock title="Contacts">
+<apex:dataTable value="{!account.Contacts}" var="contact" cellPadding="4" border="1">
+<apex:column >
+<apex:facet name="header">Name</apex:facet>
+{!contact.Name}
+</apex:column>
+<apex:column >
+<apex:facet name="header">Phone</apex:facet>
+{!contact.Phone}
+</apex:column>
+</apex:dataTable>
+</apex:pageBlock>
+
+<apex:detail subject="{!$CurrentPage.parameters.cid}" relatedList="false" title="false"/>
+</apex:page>

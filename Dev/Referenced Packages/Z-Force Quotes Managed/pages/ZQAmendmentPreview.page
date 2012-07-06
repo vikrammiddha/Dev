@@ -1,0 +1,85 @@
+<apex:page id="page" standardController="zqu__Quote__c" extensions="zqu.ZQAmendmentPreviewController" sidebar="false" tabStyle="zqu__Quote__c" action="{!onload}">
+    <apex:form id="previewform">
+        <apex:pageBlock id="block" title="We are about to create {!titleLowerCase} in Zuora using following data:" >
+       	    <apex:dataList var="error" value="{!pageerrormessages}" rendered="{!pageerrormessages.size > 0}" >
+                <apex:outputText value="{!error}" style="color:red;font-weight :bold"/>
+            </apex:dataList> 
+            <apex:pageBlock title="Account Detail" >              
+                <apex:pageBlockSection columns="2" >
+                    <apex:outputField style="font-weight:bold" value="{!account.Name}"/>                            
+                    <apex:outputField value="{!account.Id}"/>
+                    <apex:outputField value="{!account.Owner.Name}"/>
+                    <apex:outputField value="{!quote.zqu__Currency__c}"/>             
+                </apex:pageBlockSection>            
+            </apex:pageBlock>    
+            
+            <apex:outputPanel id="billtodetail">                
+                <apex:pageBlock title="Bill To Contact" >
+                <apex:actionStatus startText="Updating to Zuora..." stopText="{!updateBillToError}" stopStyle="color:#FF0000" id="updatebilltostatus"/>
+                    <apex:pageBlockButtons location="top">
+                        <apex:commandButton value="Update Zuora Data" status="updatebilltostatus" action="{!updatebillto}" reRender="billtodetail,soldtodetail" rendered="{!showBillToUpdate}"/>
+                    </apex:pageBlockButtons>                    
+                    <c:contactdetail cdisplay="{!billtocontact}" showupdate="{!showBillToUpdate}" >                        
+                    </c:contactdetail>
+                </apex:pageBlock>
+            </apex:outputPanel>
+            <apex:outputPanel id="soldtodetail">
+                <apex:pageBlock title="Sold To Contact">
+                    <apex:actionStatus startText="Updating to Zuora..." stopText="{!updateSoldToError}" stopStyle="color:#FF0000" id="updatesoldtostatus"/>
+                    <apex:pageBlockButtons location="top">
+                        <apex:commandButton value="Update Zuora Data" status="updatesoldtostatus" action="{!updatesoldto}" reRender="billtodetail,soldtodetail" rendered="{!showSoldToUpdate}"/>
+                    </apex:pageBlockButtons> 
+                    <c:contactdetail cdisplay="{!soldtocontact}" showupdate="{!showSoldToUpdate}" >                   
+                    </c:contactdetail>
+                </apex:pageBlock>
+            </apex:outputPanel>
+                   
+            <apex:pageBlock title="{!titleUpperCase}" >            
+                <apex:pageBlockSection title="Basic Information" collapsible="false" >
+                    <apex:outputField value="{!quote.Opportunity__r.Name}"/>
+                    <apex:outputField value="{!quote.zqu__ValidUntil__c}"/>
+                    <apex:outputField value="{!quote.Name}"/>
+                    <apex:outputText />               
+                    <apex:outputField value="{!quote.zqu__SubscriptionName__c}"/>
+                    <apex:outputField value="{!quote.zqu__SubscriptionVersion__c}"/>
+                    <apex:outputField value="{!quote.zqu__AmendmentName__c}"/>
+                    <apex:outputField value="{!quote.zqu__StartDate__c}"/>
+                    <apex:outputField value="{!quote.zqu__RenewalTerm__c}" rendered="{!isRenewal}" />
+                    <apex:outputText rendered="{!isRenewal}" /> 
+                    <apex:outputField value="{!quote.zqu__Description__c}"/>                   
+                </apex:pageBlockSection>
+                
+                <apex:pageBlockSection title="{!titleUpperCase} Detail" collapsible="false" columns="1"  >
+                    <apex:dataTable value="{!AmendmentDetails}" var="amendment" rowClasses="odd,even" columns="3" rules="rows" width="100%">
+                        <apex:column style="width:90%">
+                            <apex:facet name="header">Description</apex:facet>
+                            <apex:outputText style="border:1px" value="{!amendment.zqu__Description__c}"></apex:outputText>
+                        </apex:column>
+                        <apex:column style="width:5%;font-weight:bold;text-align:right" rendered="{!!isRenewal}" >
+                            <apex:facet name="header">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Total Amount</apex:facet>
+                            <apex:outputField value="{!amendment.zqu__TotalAmount__c}"></apex:outputField>
+                        </apex:column>
+                        <apex:column style="width:5%;font-weight:bold;text-align:right">
+                            <apex:facet name="header">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DeltaTCV</apex:facet>
+                            <apex:outputField value="{!amendment.zqu__DeltaTCV__c}"></apex:outputField>
+                        </apex:column>           
+                    </apex:dataTable>
+                </apex:pageBlockSection>                
+            </apex:pageBlock>            
+            <apex:pageBlockButtons location="top" >
+                <apex:commandButton style="position:relative;left:10%" rendered="{!sentdone}" value="Done" action="{!clickdone}" />
+                <apex:actionStatus id="sendingstatus">
+                    <apex:facet name="start">
+                        <apex:commandButton value="Sending..." disabled="true" style="position:relative;left:10%"/>
+                    </apex:facet>
+                    <apex:facet name="stop">
+                        <apex:commandButton style="position:relative;left:10%" status="sendingstatus" rendered="{!!sentdone}" value="Send now"  disabled="{!amendmentdetails.size == 0}" action="{!sendnow}" rerender="previewform"/>                   	
+                    </apex:facet>
+                </apex:actionStatus> 
+                <apex:commandButton style="position:relative;left:10%" rendered="{!!sentdone}" value="Cancel" action="{!cancel}"/>
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+    
+    
+</apex:page>

@@ -1,0 +1,342 @@
+<apex:page controller="ProductSelectionController" id="pageId" tabStyle="Opportunity" action="{!execute}">  
+
+<apex:outputPanel id="errorMessage">
+        <apex:messages style="color:red;size:5" />
+</apex:outputPanel>
+    
+<div class="bPageTitle"><div class="ptBody secondaryPalette"><div class="content">
+<img src="/s.gif" class="pageTitleIcon" title="Quote" alt="Quote"></img>
+<h1 class="pageType">Product Selection<span class="titleSeparatingColon">:</span></h1><h2 class="pageDescription"> {!ObjectName}</h2> 
+<div class="blank"></div></div></div></div>
+
+ <apex:form id="formId">
+ 
+    <script>
+            function calculateTotal(obj){
+               
+                if(isNaN(replaceAll(obj.value,',',''))){ 
+                    alert('This is not a valid value.');
+                    return false;
+                }
+            
+                var par=obj.parentNode; 
+                 while(par.nodeName.toLowerCase()!='tr'){ 
+                  par=par.parentNode; 
+                 } 
+                 var rowNum = par.rowIndex-1;
+                 
+                 
+                 var up = parseFloat(replaceAll(document.getElementById("{!$Component.pageId.formId.pageBlockId.pbSectionId.pbTableId}"+":" +rowNum+":unitPriceId").value,',',''));
+                 var quantity = parseFloat(document.getElementById("{!$Component.pageId.formId.pageBlockId.pbSectionId.pbTableId}"+":" +rowNum+":quantityId").value);
+                
+                var total = up * quantity;
+                document.getElementById("{!$Component.pageId.formId.pageBlockId.pbSectionId.pbTableId}"+":" +rowNum+":totalPriceId").innerHTML = total;
+                
+                calculateGrandTotal();  
+            }
+            
+            
+            function calculateGrandTotal(){
+                var chkBoxcount  = document.getElementById("{!$Component.pageId.formId.pageBlockId.pbSectionId.pbTableId}").getElementsByTagName('tr').length;  
+                chkBoxcount = chkBoxcount-1;
+                var grandTotal = 0;
+                
+                if(chkBoxcount!=undefined){
+                    for(var i=0;i<chkBoxcount;i++){
+                        var v = replaceAll(document.getElementById("{!$Component.pageId.formId.pageBlockId.pbSectionId.pbTableId}"+":" +i+":totalPriceId").innerHTML,',','');
+                        
+                         grandTotal += parseFloat(v);                                           
+                    }
+                    
+                    document.getElementById("{!$Component.pageId.formId.pageBlockId.grandTotalId}").innerHTML = grandTotal;
+                }       
+            }
+            function checkAll(cb)
+            {
+                var inputElem = document.getElementsByTagName("input");
+                for(var i=0; i<inputElem.length; i++)
+                    {
+                        if(inputElem[i].id.indexOf("checkedone")!=-1){
+                             
+                            inputElem[i].checked = cb.checked;
+                         }
+                    }
+            }
+            function checkHeaderSubHeader(cb,idString)
+            {
+                var inputElem = document.getElementsByTagName("input");
+                
+                for(var i=0; i<inputElem.length; i++)
+                    {
+                        
+                        if(inputElem[i].parentNode.id.indexOf(idString)!=-1){
+                                 
+                            inputElem[i].checked = cb.checked;
+                         }
+                    }
+            }
+            
+            function resetCheckAll(){
+                var inputElem = document.getElementsByTagName("input");
+                 for(var i=0; i<inputElem.length; i++)
+                    {
+                        if(inputElem[i].id.indexOf("headerchkbx")!=-1)
+                            inputElem[i].checked = false;
+                    }
+            }
+            
+            
+            function replaceAll(txt, replace, with_this) {
+              return txt.replace(new RegExp(replace, 'g'),with_this);
+            }
+            
+            function submitFormWithEnter(e,cmdHiddenId)  
+            {  
+                
+               var keycode;  
+               if (window.event)  
+               {  
+                  keycode = window.event.keyCode;  
+               }  
+               else if (e)  
+               {  
+                  keycode = e.which;  
+               }  
+               else  
+               {  
+                  return true;  
+               }  
+               
+               if (keycode == 13)  
+               {  
+                  //alert('Hello...' + cmdHiddenId);
+                  document.getElementById(document.getElementById(cmdHiddenId).value).click();  
+                  return false;  
+               }  
+               else  
+               {  
+                  return true;  
+               }  
+            }  
+    </script>    
+       <apex:outputPanel id="mainPanel">
+        <apex:pageBlock title="Current Products" mode="detail" id="pageBlockId" rendered="{!IF((qliWrapper.size > 0 || oliWrapper.size >0),true,false)}">
+            <apex:pageBlockButtons location="top">
+                <apex:commandButton id="save" value="Save and Return" action="{!saveAndReturn}"/>
+                <apex:commandButton id="quickSave" value="Quick Save" action="{!quickSave}"/>
+                <apex:commandButton id="Cancel" value="Cancel" action="{!cancel}"/>
+            </apex:pageBlockButtons> 
+            <apex:pageBlockSection title="Products" columns="1" collapsible="false" id="pbSectionId">
+                
+                <apex:pageBlockTable value="{!IF(qliWrapper.size > 0,qliWrapper,oliWrapper)}" var="qli" id="pbTableId"> 
+                                                
+                        <apex:column headerValue=""  >
+                            <apex:commandLink value="Del" action="{!deleteQLI}" rerender="pbTableId,grandTotalId" >
+                                 <apex:param name="qliId"
+                                        value="{!qli.newId}"
+                                        assignTo="{!qliId}"/>
+                            </apex:commandLink>
+                            <input type="hidden" id="chkBoxCount"/>
+                        </apex:column>
+                        
+                        <apex:column headerValue="Id"  >
+                            <apex:outputLabel value="{!qli.ProductCode }" />
+                        </apex:column>
+                        
+                        <apex:column headerValue="Description"  width="35%" >
+                            <apex:outputLabel value="{!qli.Description}" />
+                        </apex:column>
+                        
+                        <apex:column headerValue="UOM">
+                            <apex:outputLabel value="{!qli.li.PricebookEntry.Product2.UOM__c}" />
+                        </apex:column>
+                        
+                        <apex:column headerValue="Base Price"  >
+                            <apex:outputLabel value="{!qli.ListPrice}" />  
+                        </apex:column>
+                        
+                        <apex:column headerValue="List Price"  >
+                            <apex:outputLabel value="{!qli.ListPrice}" />  
+                        </apex:column>
+                        
+                        <apex:column headerValue="Unit Price"  width="10%">
+                            <apex:inputField value="{!qli.li.UnitPrice}" id="unitPriceId" onchange="calculateTotal(this)" style="width:90%;" />  
+                        </apex:column>
+                        
+                        <apex:column headerValue="Quantity" width="10%">
+                            <apex:inputField value="{!qli.li.Quantity}" id="quantityId" onchange="calculateTotal(this)"  style="width:90%;"/>  
+                        </apex:column>
+                        
+                        <apex:column headerValue="Total Price"  >
+                            <apex:outputLabel value="{!qli.TotalPrice}" id="totalPriceId"/>
+                        </apex:column>
+                </apex:pageBlockTable> 
+                
+            </apex:pageBlockSection>
+             <table style="width:100%">
+                <tr>
+                    <td style="width:80%" align="right">
+                        <apex:outputLabel value="Quote Total" style="font-weight:bold"/>
+                    </td>
+                    <td style="width:20%" align="center">
+                        <apex:outputLabel value="{!grandTotal}" id="grandTotalId"/>
+                    </td>
+                </tr>
+                </table>     
+        </apex:pageBlock>
+        </apex:outputPanel>
+        <apex:outputLabel value="Enter your keyword and filter criteria, then click Search to begin your search.  Search results include all records that match both your keyword and filter entries."/>
+       
+        <br></br><br></br>
+         <apex:pageBlock title="Find Products" mode="detail" id="pageBlockId1">
+         
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton id="addSelected" value="Add Selected" action="{!addSelected}" rendered="{!IF(wrapList.size > 0,true,false)}" rerender="mainPanel,pbTableId,errorMessage,grandTotalId"/>
+                <apex:commandButton id="Reset" value="Reset" action="{!reset}" rendered="{!IF(wrapList.size > 0,true,false)}" rerender="sectionSelectedProduct"/>
+                
+            </apex:pageBlockButtons> 
+            
+            <apex:pageBlockSection title="Search Criteria" columns="3" collapsible="false" id="pbSectionId">
+            
+            <apex:pageBlockSectionItem >
+            
+                <apex:pageBlockSection columns="1" collapsible="false" >
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="By Product Id" style="font-weight:bold"/>
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem >
+                        <apex:inputField value="{!prod.ProductCode}" onKeyPress="return submitFormWithEnter(event,'cmdSearch')"/> 
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+            
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem >
+            
+                <apex:pageBlockSection columns="1" collapsible="false" >
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Group" style="font-weight:bold"/>
+                    </apex:pageBlockSectionItem>
+                    
+                    <apex:pageBlockSectionItem >
+                        <apex:inputField value="{!prod.Product_Group__c}" onKeyPress="return submitFormWithEnter(event,'cmdSearch')"/>
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+            
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem >
+            
+                <apex:pageBlockSection columns="1" collapsible="false" >
+                    <apex:pageBlockSectionItem >
+                        <apex:outputLabel value="Item Type" style="font-weight:bold"/>
+                    </apex:pageBlockSectionItem>
+                     
+                    <apex:pageBlockSectionItem >
+                        <apex:inputField value="{!prod.Product_Type__c}" onKeyPress="return submitFormWithEnter(event,'cmdSearch')"/> 
+                    </apex:pageBlockSectionItem>
+                </apex:pageBlockSection>
+            
+            </apex:pageBlockSectionItem> 
+            
+            </apex:pageBlockSection>
+
+            
+           <apex:commandButton id="cmdSearchButton" value="Search" action="{!searchProducts}" rerender="sectionSelectedProduct,pbTableId1,pageBlockId1,errorMessage"/>
+            <apex:commandButton id="showAll" value="Show All Products" action="{!showAll}" rerender="sectionSelectedProduct,pbTableId1,pageBlockId1,errorMessage"/>
+            <input type="hidden" id="cmdSearch" value="{!$Component.cmdSearchButton}"/>
+          <apex:outputPanel id="sectionSelectedProduct" rendered="{!IF(wrapList.size > 0,true,false)}"> 
+             <table style="width:100%">
+                    <tr>
+                        <td style="width:33%">
+                        </td>
+                        <td style="width:33%">
+                            <apex:outputPanel rendered="{!IF(totalPageNumber > 1,true,false)}">
+                                <apex:commandLink value="{!firstString} | " action="{!firstBtnClick}" rendered="{!firstButtonEnabled}" rerender="sectionSelectedProduct,pbTableId1,pageBlockId1,errorMessage"></apex:commandLink>
+                                <apex:outputLabel value="{!firstString} | " rendered="{!NOT(firstButtonEnabled)}" escape="false"/>
+                                <apex:commandLink value="Previous | " action="{!previousBtnClick}" rendered="{!previousButtonEnabled}" rerender="sectionSelectedProduct,pbTableId1,pageBlockId1,errorMessage"></apex:commandLink>
+                                <apex:outputLabel value="Previoust | " rendered="{!NOT(previousButtonEnabled)}"/>
+                                <apex:commandLink value="Next | " action="{!nextBtnClick}" reRender="panelMain" rendered="{!nextButtonEnabled}" rerender="sectionSelectedProduct,pbTableId1,pageBlockId1,errorMessage"></apex:commandLink>
+                                <apex:outputLabel value="Next | " rendered="{!NOT(nextButtonEnabled)}"/>
+                                <apex:commandLink value="{!lastString}" action="{!lastBtnClick}" rendered="{!lastButtonEnabled}" reRender="panelMain"  rerender="sectionSelectedProduct,pbTableId1,pageBlockId1,errorMessage"></apex:commandLink>
+                                <apex:outputLabel value="{!lastString}" rendered="{!NOT(lastButtonEnabled)}" escape="false"/>
+                            </apex:outputPanel>
+                        </td>
+                        <td style="width:33%">
+                             
+                        </td>
+                    </tr>
+               </table> 
+                         
+              <apex:outputPanel id="pbSectionId1">
+              <table width="100%" class="list "  border="0" cellpadding="0" cellspacing="0">
+                    <tr class="headerRow ">
+                        
+                        <th class="headerRow  "><apex:inputCheckbox onclick="checkAll(this)" id="headerchkbx"/></th> 
+                        <th class="headerRow  "><apex:outputText value="Id" /></th>
+                        
+                    
+                    </tr>
+                    
+                        
+                       <apex:repeat value="{!pageProducts}" var="product" id="pbTableId1">
+                        
+                        
+                            <tr class="dataRow even  first " onmouseover="if (window.hiOn){hiOn(this);} " onmouseout="if (window.hiOff){hiOff(this);} " onBlur="if (window.hiOff){hiOff(this);}" onFocus="if (window.hiOn){hiOn(this);}">
+                                <td><apex:inputCheckbox value="{!product.isChecked}" id="checkedone3"/></td>
+                                <td><apex:outputLabel value="{!product.pbe.Product2.ProductCode}" /></td>
+                                 
+                                
+                            </tr>
+                       
+                     </apex:repeat>
+              </table>  
+            
+              </apex:outputPanel> 
+              <table style="width:100%">
+                    <tr>
+                        <td style="width:33%" align="left">
+                            <apex:outputPanel rendered="{!IF(wrapList.size <= 25,false,true)}" id="psizedd">
+                                <apex:outputText value="Display"></apex:outputText> 
+                                 <apex:selectList value="{!pageSize}"  size="1">
+                                    <apex:selectOptions value="{!pageSizeList}"/>
+                                    <apex:actionSupport event="onchange" 
+                                    action="{!resetPageSize}" 
+                                    rerender="sectionSelectedProduct,pbTableId1,pageBlockId1,errorMessage"/>
+                                </apex:selectList>
+                                <apex:outputText value="records per page"></apex:outputText>
+                            </apex:outputPanel> 
+                        </td>
+                        <td style="width:33%">
+                            <apex:outputPanel rendered="{!IF(totalPageNumber > 1,true,false)}">
+                                <apex:commandLink value="{!firstString} | " onClick="resetCheckAll()" action="{!firstBtnClick}" rendered="{!firstButtonEnabled}" rerender="sectionSelectedProduct,pbTableId1,pageBlockId1,errorMessage"></apex:commandLink>
+                                <apex:outputLabel value="{!firstString} | " rendered="{!NOT(firstButtonEnabled)}" escape="false"/>
+                                <apex:commandLink value="Previous | " onClick="resetCheckAll()" action="{!previousBtnClick}" rendered="{!previousButtonEnabled}" rerender="sectionSelectedProduct,pbTableId1,pageBlockId1,errorMessage"></apex:commandLink>
+                                <apex:outputLabel value="Previous | " rendered="{!NOT(previousButtonEnabled)}"/>
+                                <apex:commandLink value="Next | " onClick="resetCheckAll()" action="{!nextBtnClick}" reRender="panelMain" rendered="{!nextButtonEnabled}" rerender="sectionSelectedProduct,pbTableId1,pageBlockId1,errorMessage"></apex:commandLink>
+                                <apex:outputLabel value="Next | " rendered="{!NOT(nextButtonEnabled)}"/>
+                                <apex:commandLink value="{!lastString}" onClick="resetCheckAll()" action="{!lastBtnClick}" rendered="{!lastButtonEnabled}" reRender="panelMain"  rerender="sectionSelectedProduct,pbTableId1,pageBlockId1,errorMessage"></apex:commandLink>
+                                <apex:outputLabel value="{!lastString}" rendered="{!NOT(lastButtonEnabled)}" escape="false"/>
+                            </apex:outputPanel>
+                        </td>
+                        <td style="width:33%" align="right">
+                            <apex:outputPanel rendered="{!IF(totalPageNumber > 1,true,false)}">
+                                <apex:outputText value="Page" /> 
+                                <apex:inputText value="{!pageNumber}" size="1" >
+                                <apex:actionSupport event="onchange" 
+                                    action="{!gotoPage}" 
+                                    rerender="sectionSelectedProduct,pbTableId1,pageBlockId1,errorMessage"/>
+                                  </apex:inputText>  
+                                <apex:outputText value="of {!totalPageNumber}"></apex:outputText>
+                            </apex:outputPanel> 
+                        </td>
+                    </tr>
+               </table>
+          </apex:outputPanel>
+         </apex:pageBlock>  
+        <script>
+            calculateGrandTotal();
+        </script>
+</apex:form>
+</apex:page>

@@ -1,0 +1,3 @@
+<apex:page controller="FN.CGeoCode" action="{!preTest}">
+
+</apex:page>

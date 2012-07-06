@@ -1,0 +1,15 @@
+<apex:page controller="zqu.QuotesMigrationController">
+ 
+  <h1>Z-Force Quotes Migration</h1><p/>
+      Migrate data from version 2.38 to current version.  <br />
+      Click the "Start Migration" button to start.  
+  <apex:form >
+      <apex:commandButton value="Start Migration" action="{!migrate}" rerender="migrationresult" status="migrationstatus" />  
+  </apex:form>
+  
+  <apex:outputPanel id="migrationresult" >
+       <apex:actionStatus startText="Migrating QuoteCharges ..." id="migrationstatus" stopText="{!migrateresult}">
+     </apex:actionStatus>
+  </apex:outputPanel>
+  
+</apex:page>

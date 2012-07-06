@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>InDevelopment</deploymentStatus>
+    <deprecated>false</deprecated>
+    <description>The Charges associated with a Rate Plan.</description>
+    <enableActivities>false</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>DefaultQuantity__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The Default Quantity of the Rate Plan Charge.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The Default Quantity of the Rate Plan Charge.</inlineHelpText>
+        <label>Default Quantity</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Deleted__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Flag for soft deletion</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Flag for soft deletion</inlineHelpText>
+        <label>Deleted</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Description__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The Description of the Rate Plan Charge.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The Description of the Rate Plan Charge.</inlineHelpText>
+        <label>Description</label>
+        <required>false</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>ListPrice__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The List Price of the Rate Plan Charge.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The List Price of the Rate Plan Charge.</inlineHelpText>
+        <label>List Price</label>
+        <precision>8</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>MaxQuantity__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The Maximum Quantity of the Rate Plan Charge.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The Maximum Quantity of the Rate Plan Charge.</inlineHelpText>
+        <label>Maximum Quantity</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MinQuantity__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The Minimum Quantity of the Rate Plan Charge.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The Minimum Quantity of the Rate Plan Charge.</inlineHelpText>
+        <label>Minimum Quantity</label>
+        <precision>6</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Model__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The Model of the Rate Plan Charge.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The Model of the Rate Plan Charge.</inlineHelpText>
+        <label>Model</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Flat Fee</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Per Unit</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Volume</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tiered</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Overage</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Tiered with Overage</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>PrepaymentPeriods__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The number of Periods that will be Prepayed.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The number of Periods that will be Prepayed.</inlineHelpText>
+        <label>Prepayment Periods</label>
+        <precision>4</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PriceTable__c</fullName>
+        <deprecated>false</deprecated>
+        <description>zuora rateplan charge price table</description>
+        <externalId>false</externalId>
+        <label>Price Table</label>
+        <required>false</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>ProductRatePlan__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>The Rate Plan associated with this Rate Plan Charge.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The Rate Plan associated with this Rate Plan Charge.</inlineHelpText>
+        <label>Product Rate Plan</label>
+        <referenceTo>ProductRatePlan__c</referenceTo>
+        <relationshipLabel>Product Rate Plan Charges</relationshipLabel>
+        <relationshipName>R00N40000001mFVKEA2</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>RecurringPeriod__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The Recurring Period of the Rate Plan Charge.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The Recurring Period of the Rate Plan Charge.</inlineHelpText>
+        <label>Recurring Period</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Annual</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Month</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Quarter</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Semi-Annual</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Type__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The Type of the Rate Plan Charge.</description>
+        <externalId>false</externalId>
+        <label>Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>One-Time</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Recurring</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Usage</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>UOM__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The Unit of Measure for this Rate Plan Charge.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The Unit of Measure for this Rate Plan Charge.</inlineHelpText>
+        <label>UOM</label>
+        <length>25</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ZuoraId__c</fullName>
+        <caseSensitive>true</caseSensitive>
+        <deprecated>false</deprecated>
+        <description>The Zuora Id (external primary key) of this Rate Plan Charge.</description>
+        <externalId>true</externalId>
+        <inlineHelpText>The Zuora Id (external primary key) of this Rate Plan Charge.</inlineHelpText>
+        <label>Zuora Id</label>
+        <length>32</length>
+        <required>true</required>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <label>Product Rate Plan Charge</label>
+    <nameField>
+        <label>Rate Plan Charge Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Product Rate Plan Charges</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>

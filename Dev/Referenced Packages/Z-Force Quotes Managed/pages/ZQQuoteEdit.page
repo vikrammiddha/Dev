@@ -1,0 +1,136 @@
+<apex:page standardController="zqu__Quote__c" extensions="zqu.ZQQuoteEditController" sidebar="true" showHeader="true">
+
+<script>
+    function makeAbs(el) {
+      var val = Math.abs(el.value);
+      if (!isNaN(val)){
+         el.value = val;
+      }
+    }
+</script>
+
+   <apex:form id="quoteForm">
+      <apex:sectionHeader title="Quote Edit" subtitle="{!subTitle}" id="quoteTitle" />
+
+      <apex:pageBlock title="Quote Edit" id="quoteblock">
+
+         <apex:pageBlockButtons >
+            <apex:commandButton value="Save" action="{!save}"  reRender="quoteblock"/>
+            <apex:commandButton value="Cancel" action="{!cancel}" />
+         </apex:pageBlockButtons>
+
+         <apex:outputPanel id="errors" rendered="{!pageErrorMessages.size > 0}">
+            <center>
+               <apex:repeat value="{!pageErrorMessages}" var="err">
+                  <strong><apex:outputText value="{!err}" styleClass="errorMsg" /></strong><br/>
+               </apex:repeat>
+               <br/>
+            </center> 
+         </apex:outputPanel>
+
+         <apex:outputPanel id="viewbasicinfo">
+
+            <apex:actionRegion >
+            
+            <apex:pageBlockSection title="Quote Information" columns="1" collapsible="false">
+               <apex:outputField value="{!zqu__Quote__c.zqu__Opportunity__c}" id="opportunity"/>
+               <apex:inputField value="{!zqu__Quote__c.Name}" id="name" required="true" style="width:400px"/>
+               <apex:inputField value="{!zqu__Quote__c.zqu__ValidUntil__c}" id="valid" required="true"/>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="Account Details" columns="1" collapsible="false">
+   
+               <apex:pageBlockSectionItem >
+                  <apex:outputPanel >
+                     <apex:outputLabel value="Account Name" for="accountName" />
+                  </apex:outputPanel>
+                  <apex:outputPanel >
+                     <apex:outputLink value="{!accountURL}" id="theLink">
+                        <apex:outputText value="{!accountName}" id="accountName" />
+                     </apex:outputLink>   
+                  </apex:outputPanel>
+               </apex:pageBlockSectionItem>
+               
+               <apex:pageBlockSectionItem >
+                  <apex:outputPanel >
+                     <apex:outputLabel value="Bill To Contact" for="billTo" />
+                  </apex:outputPanel>
+                  <apex:outputPanel id="billtofield">
+                     <div class="requiredInput"><div class="requiredBlock"></div>
+                     <apex:actionRegion >
+                         <apex:selectList value="{!zqu__Quote__c.zqu__BillToContact__c}" size="1" id="billTo">
+                            <apex:actionSupport event="onchange" action="{!changeBillTo}" reRender="billtofield"/>
+                            <apex:selectOptions value="{!contactItems}"/>
+                         </apex:selectList>
+                     </apex:actionRegion>
+                     <div>
+                         <apex:outputLabel rendered="{!isBillToNull}" escape="false" value="{!contactRequiredMessage}" style="color:#D74C3B;"> </apex:outputLabel>
+                     </div>
+                     </div>
+                  </apex:outputPanel>
+               </apex:pageBlockSectionItem>
+               
+               <apex:pageBlockSectionItem >
+                  <apex:outputPanel >
+                     <apex:outputLabel value="Sold To Contact" for="soldTo" />
+                  </apex:outputPanel>
+                  <apex:outputPanel id="soldtofield">                     
+                     <div class="requiredInput"><div class="requiredBlock"></div>
+                     <apex:actionRegion >
+                         <apex:selectList value="{!zqu__Quote__c.zqu__SoldToContact__c}" size="1" id="soldTo">
+                            <apex:actionSupport event="onchange" action="{!changeSoldTo}" reRender="soldtofield"/>
+                            <apex:selectOptions value="{!contactItems}"/>
+                         </apex:selectList>
+                     </apex:actionRegion>
+                     <div>
+                         <apex:outputLabel rendered="{!isSoldToNull}" escape="false" value="{!contactRequiredMessage}" style="color:#D74C3B;" > </apex:outputLabel>
+                     </div>
+                     </div>
+                  </apex:outputPanel>
+               </apex:pageBlockSectionItem>
+   
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="Subscription Terms" columns="2" collapsible="false">
+
+               		<apex:inputField value="{!zqu__Quote__c.zqu__StartDate__c}" id="startDate" required="true"/>
+               		<apex:inputField value="{!zqu__Quote__c.zqu__BillingMethod__c}" id="billingMethod" />
+               		
+               		<apex:inputField value="{!zqu__Quote__c.zqu__Service_Activation_Date__c}" id="servActDate" />
+               		<apex:inputField value="{!zqu__Quote__c.zqu__Customer_Acceptance_Date__c}" id="custActDate" />
+               		
+               		<apex:inputField value="{!zqu__Quote__c.zqu__Subscription_Term_Type__c}" id="subtermtype" />
+               		
+		             <apex:pageBlockSectionItem >
+		                  <apex:outputPanel ><apex:outputLabel value="Initial Term (Months)" for="initialTerm"/></apex:outputPanel>
+		                  <apex:inputField value="{!zqu__Quote__c.zqu__InitialTerm__c}" id="initialTerm" required="true" onchange="javascript:return makeAbs(this);"/> 
+		             </apex:pageBlockSectionItem>
+               
+               		<apex:inputField value="{!zqu__Quote__c.zqu__PaymentMethod__c}" id="paymentMethod" required="true"/>
+
+		             <apex:pageBlockSectionItem >
+		                  <apex:outputPanel ><apex:outputLabel value="Renewal Term (Months)" for="renewalTerm" /></apex:outputPanel>
+		                  <apex:inputField value="{!zqu__Quote__c.zqu__RenewalTerm__c}" id="renewalTerm" required="true" onchange="javascript:return makeAbs(this);"/> 
+		             </apex:pageBlockSectionItem>
+               
+		             <apex:inputField value="{!zqu__Quote__c.zqu__PaymentTerm__c}" id="paymentTerm" required="true"/>
+		             <apex:inputField value="{!zqu__Quote__c.zqu__AutoRenew__c}" id="autoRenew" />
+		             <apex:inputField value="{!zqu__Quote__c.zqu__Currency__c}" id="currency" required="true"/>
+               
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="Additional Terms" columns="1" collapsible="false">
+ 				<apex:pageBlockSectionItem >
+                   <apex:outputLabel value="Special Terms and Notes" for="terms" />
+                   <apex:inputField value="{!zqu__Quote__c.zqu__Terms__c}" id="terms" style="width:500px"/>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            
+            </apex:actionRegion>
+
+         </apex:outputPanel>
+
+      </apex:pageBlock>
+   </apex:form>
+
+</apex:page>

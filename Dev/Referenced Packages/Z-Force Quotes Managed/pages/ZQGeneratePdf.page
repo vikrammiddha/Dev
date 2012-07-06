@@ -1,0 +1,14 @@
+<apex:page standardController="zqu__Quote__c" extensions="zqu.ZQGeneratePdfController" showHeader="false" sidebar="false">
+    <script>
+        if('{!pdfTemplateId}' != ''){
+            var pdfurl = null;
+            if ({!attachToOpportunity}) {
+                pdfurl = '{!quoteURL}'+ '?' + 'templateId=' + '{!pdfTemplateId}' + '&sessionId=' + '{!$Api.Session_ID}' + '&serverUrl=' + '{!$Api.Partner_Server_URL_100}' + '&quoteId=' + '{!quote.Id}' + '&attachToOpportunity=true';          
+            } else {
+                pdfurl = '{!quoteURL}'+ '?' + 'templateId=' + '{!pdfTemplateId}' + '&sessionId=' + '{!$Api.Session_ID}' + '&serverUrl=' + '{!$Api.Partner_Server_URL_100}' + '&quoteId=' + '{!quote.Id}';          
+            }
+            document.location = pdfurl;        
+         }
+    </script>
+    <apex:outputText rendered="{!pdfTemplateId == ''}" value="Quote Template Id not found. Please contact your Salesforce System Administrator to configure your default Quote Template Id."></apex:outputText>
+</apex:page>

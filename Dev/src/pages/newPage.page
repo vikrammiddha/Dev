@@ -1,0 +1,6 @@
+<apex:page >
+<apex:composition template="Composition">
+<apex:define name="header">(page) This is the header of mypage</apex:define>
+<apex:define name="body">(page) This is the body of mypage</apex:define>
+</apex:composition>
+</apex:page>

@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customSettingsType>Hierarchy</customSettingsType>
+    <customSettingsVisibility>Protected</customSettingsVisibility>
+    <description>Zuora Config Custom Setting store the information connect to Z-Billing and the settings of Z-Force Quotes</description>
+    <enableEnhancedLookup>false</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <fields>
+        <fullName>APIPassword__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Zuora API Login password</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Zuora API Login password</inlineHelpText>
+        <label>API Password</label>
+        <length>50</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>APIURL__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Zuora API endpoint URL</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Zuora API endpoint URL</inlineHelpText>
+        <label>API URL</label>
+        <length>200</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>APIUsername__c</fullName>
+        <deprecated>false</deprecated>
+        <description>API Login User Name</description>
+        <externalId>false</externalId>
+        <inlineHelpText>API Login User Name</inlineHelpText>
+        <label>API User Name</label>
+        <length>50</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Allow_Update_Bill_Cycle_Day__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Allow update bill cycle day of existing customers</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Allow update bill cycle day of existing customers</inlineHelpText>
+        <label>Allow Update Bill Cycle Day</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Allow_Updating_Zuora_Account_Info__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Allow Updating Zuora Account Information from SFDC</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Allow Updating Zuora Account Information from SFDC</inlineHelpText>
+        <label>Allow Updating Zuora Account Info</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Always_Active_Amendment__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Amendment will always Active regardless Customer Activation Date/Service Activation Date is required or not in Z-Billing Setting</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Amendment will always Active regardless Customer Activation Date/Service Activation Date is required or not in Z-Billing Setting</inlineHelpText>
+        <label>Always Active Amendment</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>AmendmentTemplateId__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The template id configed in Z-Billing Z-Force Setting for generate Quote Amendment pdf</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The template id configed in Z-Billing Z-Force Setting for generate Quote Amendment pdf</inlineHelpText>
+        <label>Amendment Template Id</label>
+        <length>50</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>AttachToOpportunity__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Attach to opportunity directly.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Select this option to automatically attach the Quote PDF to the Opportunity without viewing it. Leave unchecked to view the Quote PDF and save it manually.</inlineHelpText>
+        <label>Attach Quote PDF to Opportunity</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Auto_replace_Expired_Rate_Plans__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>If there is only one other effective rate plan on the product of the expired rate plan, automaticaly replace</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If there is only one other effective rate plan on the product of the expired rate plan, automaticaly replace</inlineHelpText>
+        <label>Auto-replace Expired Rate Plans</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>BillingAccount_AllowInvoiceEdit__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Allow Invoice edit value for newly created accounts</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Allow Invoice edit value for newly created accounts</inlineHelpText>
+        <label>Billing Account Allow Invoice Edit</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>BillingAccount_Batch__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Batch to be used for newly created accounts</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Batch to be used for newly created accounts</inlineHelpText>
+        <label>Billing Account Batch</label>
+        <length>50</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BillingAccount_BillCycleDay__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Bill Cycle Day for newly created Accounts</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Bill Cycle Day for newly created Accounts</inlineHelpText>
+        <label>Billing Account Bill Cycle Day</label>
+        <length>100</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Currency__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Default currecy value  when create new Quotes</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Default currecy value  when create new Quotes</inlineHelpText>
+        <label>Currency</label>
+        <length>50</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Enable_Amendment__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Enable Amendment feature in Z-Force Quotes</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Enable Amendment feature in Z-Force Quotes</inlineHelpText>
+        <label>Enable Amendment</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Enable_Apex_Call_Out_Debug__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Enable Apex call out soap message in debug log</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Enable Apex call out soap message in debug log</inlineHelpText>
+        <label>Enable Apex Call Out Debug</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Invoice_Delivery_Preferences__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Default Invoice Delivery Preference in Z-Force Quote</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Default Invoice Delivery Preference in Z-Force Quote</inlineHelpText>
+        <label>Invoice Delivery Preferences</label>
+        <length>50</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Match_Contract_Effective_Date__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Setting to allow Bill Cycle Day to match the contract effective date when creating a new account</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Setting to allow Bill Cycle Day to match the contract effective date when creating a new account</inlineHelpText>
+        <label>Match Contract Effective Date</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Payment_Term__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Default Payment Term Value in Quote</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Default Payment Term Value in Quote</inlineHelpText>
+        <label>Payment Term</label>
+        <length>50</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>QuoteURL__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Z-Billing Quote Generate PDF URL</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Z-Billing Quote Generate PDF URL</inlineHelpText>
+        <label>Quote Generate PDF URL</label>
+        <length>200</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Quote_Read_Only__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Set quote to read-only after successfully sent to z-billing</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Set quote to read-only after successfully sent to z-billing</inlineHelpText>
+        <label>Quote Read-Only after Sent to Z-Billing</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>RenewalTemplateId__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The Renewal template id configed in Z-Billing Z-Force Setting for generate Renewal Quote pdf</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The Renewal template id configed in Z-Billing Z-Force Setting for generate Renewal Quote pdf</inlineHelpText>
+        <label>Renewal Template Id</label>
+        <length>50</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SubscriptionAutorenewDefault__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>Subscription Auto Renew Default value checkbox</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Subscription Auto Renew Default value checkbox</inlineHelpText>
+        <label>Subscription Auto Renew Default</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Template_Id__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Generate Quote PDF template id configured in Z-Force setting in Z-Billing</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Generate Quote PDF template id configured in Z-Force setting in Z-Billing</inlineHelpText>
+        <label>New Subscription Template Id</label>
+        <length>50</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Update_Opportunity_Amount_with_Quote_TCV__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Update Opportunity Amount with Quote TCV</label>
+        <type>Checkbox</type>
+    </fields>
+    <label>Zuora Config</label>
+</CustomObject>

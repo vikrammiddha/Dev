@@ -1,0 +1,1557 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>InDevelopment</deploymentStatus>
+    <deprecated>false</deprecated>
+    <description>The Quotes related to an Opportunity.</description>
+    <enableActivities>false</enableActivities>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <fields>
+        <fullName>AmendmentName__c</fullName>
+        <deprecated>false</deprecated>
+        <description>A name for the amendment.</description>
+        <externalId>false</externalId>
+        <label>Amendment Name</label>
+        <length>50</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>AutoRenew__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <description>If this Quote will Auto Renew or now.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If this Quote will Auto Renew or now.</inlineHelpText>
+        <label>Auto Renew</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>BillToContact__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>The Contact that is billed for this Quote.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The Contact that is billed for this Quote.</inlineHelpText>
+        <label>Bill to Contact</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Quotes</relationshipLabel>
+        <relationshipName>Quotes</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>BillingCycleDay__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>TEXT(DAY( StartDate__c ))</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>BillingCycleDay</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BillingMethod__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The Billing Method of the Quote.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The Billing Method of the Quote.</inlineHelpText>
+        <label>Billing Method</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Print</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Both</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Currency__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The Currently the Quote is in.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The Currently the Quote is in.</inlineHelpText>
+        <label>Currency</label>
+        <picklist>
+            <picklistValues>
+                <fullName>USD</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>EUR</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>GBP</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>JPY</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CAD</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>CHF</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>Customer_Acceptance_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Customer Acceptance Date should be on or after Service Activation Date.
+If Customer Acceptance Date is not required in Zuora, the Service Activation Date will be used as the Customer Acceptance Date.</inlineHelpText>
+        <label>Customer Acceptance Date</label>
+        <required>false</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>DeltaMRR__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Changed MRR for this quote</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Changed MRR for this quote</inlineHelpText>
+        <label>DeltaMRR</label>
+        <summarizedField>QuoteAmendment__c.DeltaMRR__c</summarizedField>
+        <summaryForeignKey>QuoteAmendment__c.Quote__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>DeltaTCV__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Changed TCV for this quote</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Changed TCV for this quote</inlineHelpText>
+        <label>DeltaTCV</label>
+        <summarizedField>QuoteAmendment__c.DeltaTCV__c</summarizedField>
+        <summaryForeignKey>QuoteAmendment__c.Quote__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Description__c</fullName>
+        <deprecated>false</deprecated>
+        <description>A description of the amendment.</description>
+        <externalId>false</externalId>
+        <label>Description</label>
+        <required>false</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>ExistSubscriptionID__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Exist Subscription ID</label>
+        <length>32</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>InitialTerm__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The Initial Term of the Quote.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The Initial Term of the Quote.</inlineHelpText>
+        <label>Initial Term</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>MRR__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>MRR</label>
+        <summarizedField>QuoteCharge__c.MRRForRollup__c</summarizedField>
+        <summaryForeignKey>QuoteCharge__c.Quote__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Number__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The Quote Number.</description>
+        <displayFormat>Q{000000}</displayFormat>
+        <externalId>false</externalId>
+        <inlineHelpText>The Quote Number.</inlineHelpText>
+        <label>Number</label>
+        <type>AutoNumber</type>
+    </fields>
+    <fields>
+        <fullName>Opportunity__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>The Opportunity associated with this Quote.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The Opportunity associated with this Quote.</inlineHelpText>
+        <label>Opportunity</label>
+        <referenceTo>Opportunity</referenceTo>
+        <relationshipLabel>Quotes</relationshipLabel>
+        <relationshipName>Quotes</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>PaymentMethod__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The Payment Method for the Quote.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The Payment Method for the Quote.</inlineHelpText>
+        <label>Payment Method</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Credit Card</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>PayPal</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Check</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>ACH</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Wire Transfer</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cash</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>PaymentTerm__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The Payment Term.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The Payment Term.</inlineHelpText>
+        <label>Payment Term</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Due Upon Receipt</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Net 30</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Net 45</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Net 60</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>ProductSelectorVersion__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>TEXT(ZuoraConfig__r.ProductSelectorVersion__c)</formula>
+        <label>ProductSelector Version</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>RecordReadOnly__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <description>If it is allowed to edit the Quote record according to Zuora Config</description>
+        <externalId>false</externalId>
+        <inlineHelpText>If it is allowed to edit the Quote record according to Zuora Config</inlineHelpText>
+        <label>RecordReadOnly</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>RenewalTerm__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The Renewal Term of the Quote.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The Renewal Term of the Quote.</inlineHelpText>
+        <label>Renewal Term</label>
+        <precision>3</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Service_Activation_Date__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Service Activation Date should be on or after Start Date and cannot be after Customer Acceptance Date.
+If Service Activation Date is not required in Zuora, the Start Date will be used as the Service Activation Date.</inlineHelpText>
+        <label>Service Activation Date</label>
+        <required>false</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>SoldToContact__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <description>The Contact that is sold to for this Quote.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The Contact that is sold to for this Quote.</inlineHelpText>
+        <label>Sold to Contact</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Quotes (Ship to Contact)</relationshipLabel>
+        <relationshipName>Quotes2</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>StartDate__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The Date that the Quote Starts.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The Date that the Quote Starts.</inlineHelpText>
+        <label>Start Date</label>
+        <required>false</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The Status of the Quote.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The Status of the Quote.</inlineHelpText>
+        <label>Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>New</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Sent to Z-Billing</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>SubscriptionName__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The name of the subscription.</description>
+        <externalId>false</externalId>
+        <label>Subscription Name</label>
+        <length>50</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SubscriptionTermEndDate__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The term end date of the subscription is amendment on, only used for amendment Quote</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The term end date of the subscription is amendment on</inlineHelpText>
+        <label>Subscription Term End Date</label>
+        <required>false</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>SubscriptionTermStartDate__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The term start date of the subscription is amendment on, only used for amendment Quote</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The term start date of the subscription is amendment on</inlineHelpText>
+        <label>Subscription Term Start Date</label>
+        <required>false</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>SubscriptionType__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Subscription Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>New Subscription</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Amend Subscription</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Renew Subscription</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>amend</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>renew</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>SubscriptionVersion__c</fullName>
+        <deprecated>false</deprecated>
+        <description>This is the version of the subscription</description>
+        <externalId>false</externalId>
+        <label>Subscription Version</label>
+        <precision>5</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Subscription_Term_Type__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <inlineHelpText>Subscription Term Type determines whether its Termed or Evergreen. If Evergreen is chosen, then Initial Term and Renewal Term will be set to 0 and Auto Renew will be unchecked. Also, blank value means Quote is created with Termed Subscription Type.</inlineHelpText>
+        <label>Subscription Term Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Termed</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Evergreen</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>TCV__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>TCV</label>
+        <summarizedField>QuoteCharge__c.TCVForRollup__c</summarizedField>
+        <summaryForeignKey>QuoteCharge__c.Quote__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Tax__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The amount of Tax for the Quote.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The amount of Tax for the Quote.</inlineHelpText>
+        <label>Tax</label>
+        <precision>8</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Currency</type>
+    </fields>
+    <fields>
+        <fullName>Terms__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Special Terms and Notes for the Quote.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>Special Terms and Notes for the Quote.</inlineHelpText>
+        <label>Special Terms and Notes</label>
+        <length>1000</length>
+        <type>LongTextArea</type>
+        <visibleLines>4</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Total__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Total</label>
+        <summarizedField>QuoteCharge__c.Total__c</summarizedField>
+        <summaryForeignKey>QuoteCharge__c.Quote__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>ValidUntil__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The Date that the Quote is Valid until.</description>
+        <externalId>false</externalId>
+        <inlineHelpText>The Date that the Quote is Valid until.</inlineHelpText>
+        <label>Valid Until</label>
+        <required>false</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>ZuoraAccountID__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Zuora Account ID</label>
+        <length>32</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ZuoraConfig__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Zuora Config</label>
+        <referenceTo>ZuoraConfig__c</referenceTo>
+        <relationshipLabel>Quote</relationshipLabel>
+        <relationshipName>Quote</relationshipName>
+        <required>false</required>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>ZuoraSubscriptionID__c</fullName>
+        <caseSensitive>true</caseSensitive>
+        <deprecated>false</deprecated>
+        <externalId>true</externalId>
+        <label>Zuora Subscription ID</label>
+        <length>32</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <label>Quote</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>LAST_UPDATE</columns>
+        <columns>NAME</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <label>Quote Name</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Quotes</pluralLabel>
+    <recordTypes>
+        <fullName>Amendment</fullName>
+        <active>true</active>
+        <description>Record Type for Amendment Quote, assigned with Amendment Page Layout</description>
+        <label>Amendment</label>
+        <picklistValues>
+            <picklist>BillingMethod__c</picklist>
+            <values>
+                <fullName>Both</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Print</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Currency__c</picklist>
+            <values>
+                <fullName>CAD</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CHF</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>EUR</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>GBP</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>JPY</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>USD</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>PaymentMethod__c</picklist>
+            <values>
+                <fullName>ACH</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cash</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Check</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Credit Card</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PayPal</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Wire Transfer</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>PaymentTerm__c</picklist>
+            <values>
+                <fullName>Due Upon Receipt</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Net 30</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Net 45</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Net 60</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>New</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Sent to Z-Billing</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>SubscriptionType__c</picklist>
+            <values>
+                <fullName>Amend Subscription</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Renew Subscription</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Subscription_Term_Type__c</picklist>
+            <values>
+                <fullName>Evergreen</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Termed</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Amendment_ReadOnly</fullName>
+        <active>true</active>
+        <description>Record Type for amend Subscription Quote after sent to Z-Billing, assigned with Amendment Read Only Page Layout</description>
+        <label>Amendment ReadOnly</label>
+        <picklistValues>
+            <picklist>BillingMethod__c</picklist>
+            <values>
+                <fullName>Both</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Print</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Currency__c</picklist>
+            <values>
+                <fullName>CAD</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CHF</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>EUR</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>GBP</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>JPY</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>USD</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>PaymentMethod__c</picklist>
+            <values>
+                <fullName>ACH</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cash</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Check</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Credit Card</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PayPal</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Wire Transfer</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>PaymentTerm__c</picklist>
+            <values>
+                <fullName>Due Upon Receipt</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Net 30</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Net 45</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Net 60</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>New</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Sent to Z-Billing</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>SubscriptionType__c</picklist>
+            <values>
+                <fullName>Amend Subscription</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New Subscription</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Renew Subscription</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>amend</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>renew</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Subscription_Term_Type__c</picklist>
+            <values>
+                <fullName>Evergreen</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Termed</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Default</fullName>
+        <active>true</active>
+        <description>Record Type for Quote Default, assigned with Quote Default Page Layout</description>
+        <label>Default</label>
+        <picklistValues>
+            <picklist>BillingMethod__c</picklist>
+            <values>
+                <fullName>Both</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Print</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Currency__c</picklist>
+            <values>
+                <fullName>CAD</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CHF</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>EUR</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>GBP</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>JPY</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>USD</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>PaymentMethod__c</picklist>
+            <values>
+                <fullName>ACH</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cash</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Check</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Credit Card</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PayPal</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Wire Transfer</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>PaymentTerm__c</picklist>
+            <values>
+                <fullName>Due Upon Receipt</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Net 30</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Net 45</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Net 60</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>New</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Sent to Z-Billing</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>SubscriptionType__c</picklist>
+            <values>
+                <fullName>Amend Subscription</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Renew Subscription</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Subscription_Term_Type__c</picklist>
+            <values>
+                <fullName>Evergreen</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Termed</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>ReadOnly</fullName>
+        <active>true</active>
+        <description>Record Type for New Subscription Quote after sent to Z-Billing, assigned with Quote Read Only Page Layout</description>
+        <label>ReadOnly</label>
+        <picklistValues>
+            <picklist>BillingMethod__c</picklist>
+            <values>
+                <fullName>Both</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Print</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Currency__c</picklist>
+            <values>
+                <fullName>CAD</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CHF</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>EUR</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>GBP</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>JPY</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>USD</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>PaymentMethod__c</picklist>
+            <values>
+                <fullName>ACH</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cash</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Check</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Credit Card</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PayPal</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Wire Transfer</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>PaymentTerm__c</picklist>
+            <values>
+                <fullName>Due Upon Receipt</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Net 30</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Net 45</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Net 60</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>New</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Sent to Z-Billing</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>SubscriptionType__c</picklist>
+            <values>
+                <fullName>Amend Subscription</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Renew Subscription</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Subscription_Term_Type__c</picklist>
+            <values>
+                <fullName>Evergreen</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Termed</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Renewal</fullName>
+        <active>true</active>
+        <description>Record Type for Quote Renewal, assigned with Renewal Page Layout</description>
+        <label>Renewal</label>
+        <picklistValues>
+            <picklist>BillingMethod__c</picklist>
+            <values>
+                <fullName>Both</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Print</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Currency__c</picklist>
+            <values>
+                <fullName>CAD</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CHF</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>EUR</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>GBP</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>JPY</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>USD</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>PaymentMethod__c</picklist>
+            <values>
+                <fullName>ACH</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cash</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Check</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Credit Card</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PayPal</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Wire Transfer</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>PaymentTerm__c</picklist>
+            <values>
+                <fullName>Due Upon Receipt</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Net 30</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Net 45</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Net 60</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>New</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Sent to Z-Billing</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>SubscriptionType__c</picklist>
+            <values>
+                <fullName>Amend Subscription</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New Subscription</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Renew Subscription</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>amend</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>renew</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Subscription_Term_Type__c</picklist>
+            <values>
+                <fullName>Evergreen</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Termed</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <recordTypes>
+        <fullName>Renewal_ReadOnly</fullName>
+        <active>true</active>
+        <description>Record Type for renew subscription Quote after sent to Z-Billing, assigned with Renewal Read Only Page Layout</description>
+        <label>Renewal ReadOnly</label>
+        <picklistValues>
+            <picklist>BillingMethod__c</picklist>
+            <values>
+                <fullName>Both</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Email</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Print</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Currency__c</picklist>
+            <values>
+                <fullName>CAD</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>CHF</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>EUR</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>GBP</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>JPY</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>USD</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>PaymentMethod__c</picklist>
+            <values>
+                <fullName>ACH</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Cash</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Check</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Credit Card</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Other</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>PayPal</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Wire Transfer</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>PaymentTerm__c</picklist>
+            <values>
+                <fullName>Due Upon Receipt</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Net 30</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Net 45</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Net 60</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Status__c</picklist>
+            <values>
+                <fullName>New</fullName>
+                <default>true</default>
+            </values>
+            <values>
+                <fullName>Sent to Z-Billing</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>SubscriptionType__c</picklist>
+            <values>
+                <fullName>Amend Subscription</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>New Subscription</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Renew Subscription</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>amend</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>renew</fullName>
+                <default>false</default>
+            </values>
+        </picklistValues>
+        <picklistValues>
+            <picklist>Subscription_Term_Type__c</picklist>
+            <values>
+                <fullName>Evergreen</fullName>
+                <default>false</default>
+            </values>
+            <values>
+                <fullName>Termed</fullName>
+                <default>true</default>
+            </values>
+        </picklistValues>
+    </recordTypes>
+    <searchLayouts>
+        <excludedStandardButtons>New</excludedStandardButtons>
+        <searchFilterFields>NAME</searchFilterFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>ValidateCustomerAcceptanceDate</fullName>
+        <active>true</active>
+        <description>Validate whether Customer Acceptance Date is equal or after Service Activation Date</description>
+        <errorConditionFormula>AND 
+     ( NOT ( ISNULL (   Customer_Acceptance_Date__c   ) ),
+       OR 
+           ( 
+             Customer_Acceptance_Date__c &lt;   Service_Activation_Date__c,
+             Customer_Acceptance_Date__c &lt;    StartDate__c 
+           )
+     )</errorConditionFormula>
+        <errorDisplayField>Customer_Acceptance_Date__c</errorDisplayField>
+        <errorMessage>Customer Acceptance Date cannot be before Service Activation Date or Start Date</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>ValidateServiceActivationDate</fullName>
+        <active>true</active>
+        <description>Validate whether Service Activation Date is equal or after Start Date</description>
+        <errorConditionFormula>AND 
+     ( NOT ( ISNULL (  Service_Activation_Date__c  ) ),
+       Service_Activation_Date__c &lt;  StartDate__c 
+     )</errorConditionFormula>
+        <errorDisplayField>Service_Activation_Date__c</errorDisplayField>
+        <errorMessage>Service Activation Date cannot be before Start Date</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>ValidateSubscriptionTermedType</fullName>
+        <active>true</active>
+        <description>Validation message if System Administrator tries to change the Subscription Termed Type where the field is Read Only from page layout</description>
+        <errorConditionFormula>AND(
+            AND ( 
+                  NOT ( $RecordType.Name = &apos;Default&apos; ),
+                  NOT ( $RecordType.Name = &apos;&apos; ),
+                  NOT ( ISPICKVAL(  Status__c , &apos;Sent to Z-Billing&apos; ) )
+             ),
+             ISPICKVAL ( Subscription_Term_Type__c , &apos;Evergreen&apos; )
+        )</errorConditionFormula>
+        <errorDisplayField>Subscription_Term_Type__c</errorDisplayField>
+        <errorMessage>Subscription Term Type cannot be made Evergreen.</errorMessage>
+    </validationRules>
+    <webLinks>
+        <fullName>Amendment_Send_to_Z_Billing</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>Send to Z-Billing</masterLabel>
+        <openType>sidebar</openType>
+        <page>ZQAmendmentPreview</page>
+        <protected>false</protected>
+    </webLinks>
+    <webLinks>
+        <fullName>Change_Currency</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>page</linkType>
+        <masterLabel>Change Currency</masterLabel>
+        <openType>replace</openType>
+        <page>ChangeQuoteCurrency</page>
+        <protected>false</protected>
+    </webLinks>
+    <webLinks>
+        <fullName>Edit_Charges</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>Edit Charges</masterLabel>
+        <openType>noSidebar</openType>
+        <page>ZQQuoteEditRedirector</page>
+        <protected>false</protected>
+    </webLinks>
+    <webLinks>
+        <fullName>Generate_PDF2</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <hasMenubar>false</hasMenubar>
+        <hasScrollbars>true</hasScrollbars>
+        <hasToolbar>false</hasToolbar>
+        <height>600</height>
+        <isResizable>true</isResizable>
+        <linkType>page</linkType>
+        <masterLabel>Generate PDF</masterLabel>
+        <openType>newWindow</openType>
+        <page>ZQGeneratePdf</page>
+        <position>none</position>
+        <protected>false</protected>
+        <showsLocation>false</showsLocation>
+        <showsStatus>false</showsStatus>
+    </webLinks>
+    <webLinks>
+        <fullName>ProductSelect</fullName>
+        <availability>online</availability>
+        <description>Select Products for this Quote.</description>
+        <displayType>button</displayType>
+        <height>1000</height>
+        <linkType>page</linkType>
+        <masterLabel>Select Products</masterLabel>
+        <openType>sidebar</openType>
+        <page>ZuoraProductSelectorAdd</page>
+        <protected>false</protected>
+    </webLinks>
+    <webLinks>
+        <fullName>ProductSelectByScontrol</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <height>600</height>
+        <linkType>sControl</linkType>
+        <masterLabel>Select Products(S-Controls Version)</masterLabel>
+        <openType>sidebar</openType>
+        <protected>false</protected>
+        <scontrol>ProductSelector</scontrol>
+    </webLinks>
+    <webLinks>
+        <fullName>ProductSelectByVFPage</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>Select Products(VF-Pages Version)</masterLabel>
+        <openType>noSidebar</openType>
+        <page>ZuoraProductSelector</page>
+        <protected>false</protected>
+    </webLinks>
+    <webLinks>
+        <fullName>SubmitToZuora</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <height>600</height>
+        <linkType>page</linkType>
+        <masterLabel>Send to Z-Billing</masterLabel>
+        <openType>sidebar</openType>
+        <page>ZuoraQuoteSubmit</page>
+        <protected>false</protected>
+    </webLinks>
+</CustomObject>

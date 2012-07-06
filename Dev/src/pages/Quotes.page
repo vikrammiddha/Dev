@@ -1,0 +1,34 @@
+<apex:page StandardController="Quote_new__c" extensions="QuoteController" tabStyle="Opportunity">
+    
+            <apex:form >
+            <apex:pageBlock >
+           
+             
+                
+                 <apex:commandbutton value="Add Product" action="{!Add}" rerender="pb1"/>
+                 <apex:outputPanel id="pb1">
+            	 <apex:repeat value="{!lstInner}" var="e1" id="therepeat">
+                 <apex:panelGrid columns="5">
+                            
+                   <apex:panelGrid headerClass="Name">
+                      <apex:facet name="header">Del</apex:facet>
+                    <apex:commandButton value="X" action="{!Del}" rerender="pb1">
+                     <apex:param name="rowToBeDeleted" value="{!e1.recCount}" assignTo="{!selectedRowIndex}"></apex:param>
+              </apex:commandButton>
+                </apex:panelGrid>  
+                   <apex:panelGrid title="SPD" >
+                   <apex:facet name="header">Product Code</apex:facet>
+                 <apex:inputfield value="{!e1.qlr.Quote_new__c}"/>
+              </apex:panelGrid>
+                             
+              </apex:panelgrid>
+             </apex:repeat>
+             
+             </apex:outputPanel>
+             
+                </apex:pageBlock>
+                
+                
+        </apex:form>
+    
+</apex:page>
