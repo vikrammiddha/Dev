@@ -1,2 +1,2 @@
 <apex:page action="{!URLFOR('/answers/answersHome.apexp')}"/>
-hello123
+helloXXXX
