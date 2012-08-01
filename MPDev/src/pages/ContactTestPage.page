@@ -1,0 +1,9 @@
+<apex:page controller="ContactTest">
+    
+             
+        <p>HASERROR: {!hasError}</p>
+        
+    
+     
+      
+</apex:page>
