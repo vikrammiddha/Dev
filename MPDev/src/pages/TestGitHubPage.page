@@ -1,6 +1,6 @@
 <apex:page >
 <!-- Begin Default Content REMOVE THIS -->
 <h1>Congratulations</h1>
-Hi . This is Myself123
+This is demo class
 <!-- End Default Content REMOVE THIS -->
 </apex:page>
